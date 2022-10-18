@@ -24,7 +24,7 @@ const parseArgumentsCalculator = (args: string[]): CalculateParams => {
   if (weekHours.some((d) => isNaN(d) || d > 24)) {
     throw Error("Please give time per day in hours (max 24h)")
   }
-  const target: Target = weekHours.shift()
+  const target: Target = weekHours.shift() || 0
   if (target === 0) {
     throw Error("Please be ambitious: choose a target above 0")
   }
