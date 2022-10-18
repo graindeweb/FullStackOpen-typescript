@@ -25,6 +25,9 @@ const parseArgumentsCalculator = (args: string[]): CalculateParams => {
     throw Error("Please give time per day in hours (max 24h)")
   }
   const target: Target = weekHours.shift()
+  if (target === 0) {
+    throw Error("Please be ambitious: choose a target above 0")
+  }
 
   return { target, weekHours }
 }
@@ -33,14 +36,15 @@ const calculateExercices = (weekHours: WeekHours, target: Target): WeekHoursRepo
   const periodLength = weekHours.length
   const trainingDays = weekHours.filter((d) => d > 0).length
   const average = weekHours.reduce((acc, d) => acc + d, 0) / periodLength
-  const rating = Math.round((average * 100) / target / 33)
+  const realRating = Math.round(((average * 100) / target) / 33)
+  const rating = realRating > 3 ? 3 : realRating
   const success = rating > target
   const ratingDescription = [
     "so close to nothing",
     "better than nothing",
     "not to bad but could be better",
     "good job!",
-  ][rating <= 3 ? rating : 3]
+  ][rating]
 
   return {
     periodLength,
