@@ -17,9 +17,9 @@ interface WeekHoursReport {
 }
 
 const parseArgumentsCalculator = (args: string[]): CalculateParams => {
-  if (process.argv.length < 3) throw Error("Please give some hours per day")
+  if (args.length < 3) throw Error("Please give some hours per day")
 
-  const weekHours: WeekHours = process.argv.slice(2).map((d) => Number(d))
+  const weekHours: WeekHours = args.slice(2).map((d) => Number(d))
 
   if (weekHours.some((d) => isNaN(d) || d > 24)) {
     throw Error("Please give time per day in hours (max 24h)")
