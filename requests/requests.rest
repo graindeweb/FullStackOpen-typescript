@@ -1,0 +1,8 @@
+### check exercices
+POST http://localhost:3000/exercices
+Content-type: application/json
+
+{
+    "daily_exercices": [1, 0, 2, 0, 3, 0, 2.5],
+    "target": 1
+}
