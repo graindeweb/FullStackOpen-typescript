@@ -7,13 +7,20 @@ type Bmi = number
 
 type bmiLevel = {
   low: number
-  height: number
+  high: number
   info: string
 }
 
 type bmiLevelType = "underweight" | "normal" | "overweight" | "obese"
 
-const bmiLevels = {
+interface BmiLevels {
+    underweight: bmiLevel
+    normal: bmiLevel
+    overweight: bmiLevel
+    obese: bmiLevel
+}
+
+const bmiLevels: BmiLevels = {
   underweight: { low: 0, high: 18.4, info: "you must eat more" },
   normal: { low: 18.5, high: 24.9, info: "healthy weight" },
   overweight: { low: 25.0, high: 39.9, info: "be careful..." },
