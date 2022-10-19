@@ -6,26 +6,28 @@ export type PhysicalData = {
 export type Bmi = number;
 export type BmiInfo = string;
 
-type bmiLevel = {
+type BmiLevel = {
   low: number
   high: number
   info: string
 };
 
-type bmiLevelType = "underweight" | "normal" | "overweight" | "obese";
-
-interface BmiLevels {
-    underweight: bmiLevel
-    normal: bmiLevel
-    overweight: bmiLevel
-    obese: bmiLevel
+enum BmiLevelType {
+  underweight = "underweight",
+  normal = "normal",
+  overweight = "overweight",
+  obese = "obese",
 }
 
+type BmiLevels = {
+  [key in BmiLevelType]: BmiLevel
+};
+
 const bmiLevels: BmiLevels = {
-  underweight: { low: 0, high: 18.4, info: "you must eat more" },
-  normal: { low: 18.5, high: 24.9, info: "healthy weight" },
-  overweight: { low: 25.0, high: 39.9, info: "be careful..." },
-  obese: { low: 40.0, high: 700, info: "you're so fat" },
+  [BmiLevelType.underweight]: { low: 0, high: 18.4, info: "you must eat more" },
+  [BmiLevelType.normal]: { low: 18.5, high: 24.9, info: "healthy weight" },
+  [BmiLevelType.overweight]: { low: 25.0, high: 39.9, info: "be careful..." },
+  [BmiLevelType.obese]: { low: 40.0, high: 700, info: "you're so fat" },
 };
 
 export const checkArguments = (height: number, weight: number): PhysicalData => {
@@ -61,7 +63,7 @@ export const calculateBmi = (height: number, weight: number): Bmi => {
 
 export const checkBmi = (bmi: Bmi): BmiInfo => {
   for (const levelType in bmiLevels) {
-    const type = levelType as bmiLevelType;
+    const type = levelType as BmiLevelType;
     if (bmi >= bmiLevels[type].low && bmi <= bmiLevels[type].high) {
       return `You're ${type} (${bmiLevels[type].info})`;
     }
